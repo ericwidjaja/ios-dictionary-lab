@@ -10,23 +10,74 @@ Fork and clone this repo. On your fork, answer and commit the follow questions. 
 - Add two more countries to your dictionary.
 
 - Translate at least 3 of the capital names into another language.
+```swift
 
+var citiesDict: [String:String] = ["Germany":"Berlin", "Australia":"Canberra", "Canada":"Ottawa"]
+//add two more countries
+    citiesDict["Malaysia"] = "Kuala Lumpur"
+    citiesDict["Turkey"] = "Ankara"
+    
+    print(citiesDict)
+
+//Translate 3 of the capital names in another language
+    citiesDict ["Germany"] = "\u{411}\u{435}\u{440}\u{43B}\u{438}\u{43D}"
+    citiesDict ["Canada"] = "\u{41E}\u{442}\u{442}\u{430}\u{432}\u{430}"
+    citiesDict ["Malaysia"] = "\u{41A}\u{443}\u{430}\u{43B}\u{430}\u{2D}\u{41B}\u{443}\u{43C}\u{43F}\u{443}\u{440}"
+
+    print(citiesDict)
+```
 
 ## Question 2
 
 `var someDict:[String:Int] = ["One": 1, "Two": 4, "Three": 9, "Four": 16, "Five": 25]`
 
 - Using `someDict`, add together the values associated with "Three" and "Five" and print the result.
+```swift
 
+    var someDict:[String:Int] = ["One": 1, "Two": 4, "Three": 9, "Four": 16, "Five": 25]
+    //add value of "Three" and "Five"
+        var threeFive:Int = someDict["Three"]! + someDict["Five"]!
+        print(threeFive)
+```
 - Add values to the dictionary for the keys "Six" and "Seven".
+```
+    someDict["Six"] = 6
+    someDict["Seven"] = 7
+```
 
 - Make a key called `productUpToSeven` and set its value equal to the product of all the values.
-
+```
+var productUpToSeven = 1
+for (key, value) in someDict {
+productUpToSeven = (productUpToSeven * value)
+}
+print(productUpToSeven)
+```
 - Make a key called `sumUpToSix` and set its value equal to the sum of the keys "One", "Two", "Three", "Four", "Five" and "Six".
-
+```
+var sumUpToSix = 0
+    for (key, value) in someDict {
+        if key != "Seven" {
+            sumUpToSix = (sumUpToSix + value)
+        }
+    }
+    print(sumUpToSix)
+```
 - Remove the new keys made in the previous two steps
+```swift
 
+    let removedValue = someDict.removeValue(forKey: "Six")
+    someDict["Seven"] = nil
+    print(someDict)
+
+```
 - Add 2 to every value inside of `someDict`.
+```
+    for (key, value) in someDict {
+    someDict[key] = value + 2
+    }
+    print(someDict)
+```
 
 
 ## Question 3
@@ -44,13 +95,32 @@ Create a variable that is explicitly typed as a dictionary that maps strings to 
 Using the dictionary created in the previous problem, do the following:
 
 - Print out the floating-point score for “John Steinbeck”.
+```swift
 
+print("John Steinbeck : \(authorsAndScores["John Steinbeck"]!)")
+
+```
 - Add an additional author named “Erik Larson” with an assigned score of 9.2.
-
+```
+    authorsAndScores["Erik Larson"] = 9.2
+    print(authorsAndScores)
+```
 - Write an if/else statement that compares the score of John Krakaur with Mark Twain. Print out the name of the author with the highest score.
+```
+if authorsAndScores["Jon Krakauer"] ?? 0 >     authorsAndScores["Mark Twain"] ?? 0 {
+    print("Jon Krakauer has the highest score")
+    } else {
+    print("Mark Twain has the highest score")
+}
+```
+
 
 - Use a for-loop to iterate through the dictionary you created at the beginning of the problem, and print out the content in the form of key: value, one entry per line.
-
+```
+    for (key, value) in authorsAndScores {
+        print("\(key), \(value)")
+    }
+```
 
 ## Question 4
 
