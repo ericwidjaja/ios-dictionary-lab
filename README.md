@@ -40,18 +40,18 @@ var citiesDict: [String:String] = ["Germany":"Berlin", "Australia":"Canberra", "
         print(threeFive)
 ```
 - Add values to the dictionary for the keys "Six" and "Seven".
-```
-    someDict["Six"] = 6
-    someDict["Seven"] = 7
+```swift
+someDict["Six"] = 6
+someDict["Seven"] = 7
 ```
 
 - Make a key called `productUpToSeven` and set its value equal to the product of all the values.
-```
-var productUpToSeven = 1
-for (key, value) in someDict {
-productUpToSeven = (productUpToSeven * value)
-}
-print(productUpToSeven)
+```swift
+    var productUpToSeven = 1
+        for (key, value) in someDict {
+            productUpToSeven = (productUpToSeven * value)
+        }
+    print(productUpToSeven)
 ```
 - Make a key called `sumUpToSix` and set its value equal to the sum of the keys "One", "Two", "Three", "Four", "Five" and "Six".
 ```
@@ -72,7 +72,7 @@ var sumUpToSix = 0
 
 ```
 - Add 2 to every value inside of `someDict`.
-```
+```swift
     for (key, value) in someDict {
     someDict[key] = value + 2
     }
@@ -101,22 +101,20 @@ print("John Steinbeck : \(authorsAndScores["John Steinbeck"]!)")
 
 ```
 - Add an additional author named “Erik Larson” with an assigned score of 9.2.
-```
+```swift
     authorsAndScores["Erik Larson"] = 9.2
     print(authorsAndScores)
 ```
 - Write an if/else statement that compares the score of John Krakaur with Mark Twain. Print out the name of the author with the highest score.
-```
+```swift
 if authorsAndScores["Jon Krakauer"] ?? 0 >     authorsAndScores["Mark Twain"] ?? 0 {
     print("Jon Krakauer has the highest score")
     } else {
     print("Mark Twain has the highest score")
 }
 ```
-
-
 - Use a for-loop to iterate through the dictionary you created at the beginning of the problem, and print out the content in the form of key: value, one entry per line.
-```
+```swift
     for (key, value) in authorsAndScores {
         print("\(key), \(value)")
     }
@@ -155,12 +153,41 @@ var code = [
     "y" : "z",
     "z" : "a"
 ]
-
-var message = "hello world"
 ```
+```swift
+var message = "hello world"
+var encodedMessage = ""
 
+for c in message {
+    for (key, value) in code {
+        if String(c) == key {
+            encodedMessage.append(value)
+        } else if String(c) == " " {
+            encodedMessage.append(c)
+            break
+            }
+        }
+    }
+    print(encodedMessage)
+
+```
 You are also given an `encodedMessage` which contains only lowercase letters and spaces. Use the `code` dictionary to decode the message and print it.
 `var encodedMessage = "uijt nfttbhf jt ibse up sfbe"`
+```swift
+var encodedMessage = "uijt nfttbhf jt ibse up sfbe"
+var message = ""
+    for c in encodedMessage {
+        for (key, value) in code {
+            if String(c) == value {
+                message.append(key)
+            } else if String(c) == " " {
+                message.append(c)
+                break
+            }
+        }
+    }
+print(message)
+```
 
 
 ## Question 5
@@ -190,10 +217,30 @@ var people: [[String:String]] = [
         "lastName": "Bowen"
     ]
 ]
+var firstNames: [String] = []
+
+for person in people {
+    if let firstname = person["firstName"] {
+        firstNames.append(firstname)
+    }
+}
+print(firstNames)
 ```
-
+```
 Now, create an array of strings called `fullNames` that contains the values for `“firstName”` and `“lastName”` from the dictionary separated by a space.
+```
+```swift
+var fullName: [String] = []
 
+for person in people {
+    if let firstnames = person["firstName"], let lastnames = person["lastName"] {
+        let fullnames = "\(firstnames) \(lastnames)"
+        fullName.append(fullnames)
+    }
+}
+
+print(fullName)
+```
 
 ## Question 6
 
@@ -227,11 +274,36 @@ var peopleWithScores: [[String: String]] = [
         "score": "16"
     ]
 ]
+
+var highestScore = 0
+var firstNames = ""
+var lastNames = ""
+
+for names in peopleWithScores {
+    if let score = names ["score"] {
+        if let newScore: Int = Int(score){
+            if newScore > highestScore{
+                highestScore = newScore
+                if let firstName = names["firstName"], let lastName = names["lastName"]{
+                firstNames = firstName
+                lastNames = lastName
+                }
+            }
+        }
+    }
+}
+
+print("\(firstNames) \(lastNames) has the highest score of \(highestScore)")
+
 ```
-
 Print out the dictionary above in the following format:  **full name - score**
-
-
+```swift
+for names in peopleWithScores {
+    if let firstName = names["firstName"], let lastName = names["lastName"], let scores = names ["score"] {
+        print("\(firstName) \(lastName) - score \(scores)")
+    }
+}
+```
 ## Question 7
 
 `var numbers = [1, 2, 3, 2, 3, 5, 2, 1, 3, 4, 2, 2, 2]`
@@ -239,19 +311,67 @@ Print out the dictionary above in the following format:  **full name - score**
 You are given an array of integers. The frequency of a number is the number of times it appears in the array. Find out the frequency of each one.
 
 Print the numbers in ascending order followed by their frequency.
+```swift
+var numbers = [1, 2, 3, 2, 3, 5, 2, 1, 3, 4, 2, 2, 2]
+var frequency: [Int:Int] = [:]
+var newNumbers: [Int] = []
 
+for number in numbers {
+    if let oldFreq = frequency[number] {
+    frequency[number] = oldFreq + 1
+    } else {
+        newNumbers.append(number)
+        frequency[number] = 1
+    }
+}
+
+newNumbers.sort(by: <)
+for number in newNumbers {
+print("\(number) \(frequency[number]!)")
+}
+```
 
 ## Question 8
 
 Print the most common letter in the string below:
 
-`var myString = "We're flooding people with information. We need to feed it through a processor. A human must turn information into intelligence or knowledge. We've tended to forget that no computer will ever ask a new question."`
+```swift
+
+var myString = "We're flooding people with information. We need to feed it through a processor. A human must turn information into intelligence or knowledge. We've tended to forget that no computer will ever ask a new question."
+
+var frequency = [Character: Int]()
+var mostCommonLetter: Character = " "
+var count:Int = 0
+
+for c in myString where c != " "{
+    if frequency.keys.contains(c) {
+        frequency[c] = frequency[c]! + 1
+    } else {
+    frequency[c] = 1
+    }
+
+    if let temp = frequency[c] as? Int {
+        if temp > count{
+        mostCommonLetter = c
+        count = temp
+        }
+    }
+}
+
+print("The most common letter used in the paragraph is \(mostCommonLetter)")
+```
 
 
 ## Question 9
 
 Write code that creates a dictionary where the keys are Ints between 0 and 20 inclusive, and each key's value is its cube.
-
+```swift
+var cubeDict : [Int:Int] = [:]
+    for i in 0...20{
+        cubeDict[i] = i * i * i
+    }
+print(cubeDict)
+```
 
 ## Question 10
 
@@ -260,6 +380,15 @@ Write code that iterates through `testStates` and prints out whether or not that
 ```swift
 let statePop = ["Alabama": 4.8, "Alaska": 0.7, "Arizona": 6.7, "Arkansas": 3.0]
 let testStates = ["California","Arizona", "Alabama", "New Mexico"]
+
+for states in testStates {
+    if statePop.keys.contains(states) {
+        print("\(states) is in the statePop")
+    } else {
+        print("\(states) is NOT in the statePop")
+    }
+}
+
 ```
 
 
@@ -304,8 +433,39 @@ let arr1 = [2, 4, 5, 6, 8, 10, 12]
 let arr2 = [1, 2, 3, 4, 5, 6]
 let arr3 = [5, 6, 7, 8, 9, 10, 11, 12]
 let arr4 = [1, 3, 4, 5, 6, 7, 9]
-```
 
+let newArr = [arr1, arr2, arr3, arr4]
+
+var noDuplicates: [Int] = []
+
+for arr in newArr {
+    for int in arr {
+        if !noDuplicates.contains(int) {
+        noDuplicates.append(int)
+        }
+    }
+}
+
+print(noDuplicates.sorted())
+```
+b) create another new array that contains unique values that appear in all 4 arrays.
+
+```swift
+
+let arr1 = [2, 4, 5, 6, 8, 10, 12]
+let arr2 = [1, 2, 3, 4, 5, 6]
+let arr3 = [5, 6, 7, 8, 9, 10, 11, 12]
+let arr4 = [1, 3, 4, 5, 6, 7, 9]
+
+let newArr = [arr1, arr2, arr3, arr4]
+var uniqueValues: [Int] = []
+
+    for int in arr1 where arr2.contains(int) && arr3.contains(int) && arr4.contains(int) {
+        uniqueValues.append(int)
+    }
+
+    print(uniqueValues)
+```
 
 ## Question 14
 
