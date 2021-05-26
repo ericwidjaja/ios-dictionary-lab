@@ -285,35 +285,42 @@ var peopleWithScores: [[String: String]] = [
     ]
 ]
 
-var highestScore = 0
-var firstNames = ""
-var lastNames = ""
+var currentScore: Int = 0
+var personFirstName: String = ""
+var personLastName: String = ""
 
-for names in peopleWithScores {
-    if let score = names ["score"] {
-        if let newScore: Int = Int(score){
-            if newScore > highestScore{
-                highestScore = newScore
-                if let firstName = names["firstName"], let lastName = names["lastName"]{
-                firstNames = firstName
-                lastNames = lastName
+for person in peopleWithScores {
+    if let score = person["score"] {
+        if let highestScore: Int = Int(score) {
+            if currentScore < highestScore {
+                currentScore = highestScore
+                if let firstName = person ["firstName"],
+                   let lastName = person ["lastName"] {
+                    personFirstName = firstName
+                    personLastName = lastName
                 }
             }
         }
     }
 }
-
-print("\(firstNames) \(lastNames) has the highest score of \(highestScore)")
-
+print("\(personFirstName) \(personLastName) has a highest score of \(currentScore)")
 ```
 Print out the dictionary above in the following format:  **full name - score**
 ```swift
-for names in peopleWithScores {
-    if let firstName = names["firstName"], let lastName = names["lastName"], let scores = names ["score"] {
-        print("\(firstName) \(lastName) - score \(scores)")
+
+var personFullName = ""
+
+for person in peopleWithScores {
+    if let firstName = person["firstName"],
+       let lastName = person["lastName"],
+       let score = person ["score"] {
+        personFullName = firstName + lastName
+        currentScore = Int(score) ?? 0
+        print("\(personFullName) - \(currentScore)")
     }
 }
 ```
+
 ## Question 7
 
 `var numbers = [1, 2, 3, 2, 3, 5, 2, 1, 3, 4, 2, 2, 2]`
